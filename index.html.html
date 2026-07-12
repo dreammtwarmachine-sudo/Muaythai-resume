@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jakkapan (Dream) - Muay Thai Resume</title>
+    <!-- ดึง FontAwesome มาใช้สำหรับ Icon ต่างๆ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="jakkapan.png">
+    <style>
+     :root {
+        --primary-red: #ff4757;    /* สีแดงสำหรับหมวดหมู่ CERTIFICATIONS */
+        --dark-bg: #0a0f1d;        /* สีน้ำเงินดาร์กเนวี่ส่วนหัว */
+        --light-bg: #0a0f1d;       /* สีพื้นหลังเว็บหลัก */
+        --card-bg: #131c31;        /* สีพื้นหลังกล่องข้อความ/การ์ด */
+        --text-dark: #ffffff;      /* สีตัวอักษรหลักเปลี่ยนเป็นสีขาว */
+        --text-muted: #94a3b8;     /* สีตัวอักษรรองเปลี่ยนเป็นเทาฟ้า */
+        --gold: #ffcc00;           /* สีทองพี่เมียมสำหรับหัวข้อและรางวัล */
+    }
+/* 💥 โค้ดสั่งบังคับเปลี่ยนสีการ์ดและตัวหนังสือทั้งเว็บ 💥 */
+    
+    /* 1. บังคับตัวหนังสือของหัวข้อและเนื้อหาทั้งหมดให้เป็นสีสว่างเพื่อให้อ่านง่าย */
+    h1, h2, h3, h4, h5, h6, p, span, li, td, th, label {
+        color: var(--text-dark) !important;
+    }
+
+    /* 2. บังคับให้หัวข้อหลัก (เช่น WHY TRAIN / HALL OF FAME) กลายเป็นสีทองพรีเมียม */
+    h1, h2 {
+        color: var(--gold) !important;
+    }
+
+    /* 3. บังคับข้อความรอง/คำอธิบาย ให้เป็นสีเทาฟ้านุ่มตา */
+    small, .text-muted, [class*="muted"], [class*="subtitle"] {
+        color: var(--text-muted) !important;
+    }
+
+    /* 4. บังคับกล่องข้อความ/การ์ดเนื้อหาทั้งหมด ให้เปลี่ยนจากสีขาวเป็นสีน้ำเงินเข้มมนๆ แบบในรูป */
+    .card, .box, .item, section div, .stat-box, .champion-card {
+        background-color: var(--card-bg) !important;
+        border: 1px solid #1e293b !important;
+        border-radius: 12px !important;
+    }
+/* สร้างคำสั่งดึงสีทอง */
+    .text-gold {
+        color: #ffcc00 !important;
+    }
+
+        /* --- Reset Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- Top Bar (แถบด้านบนสุด) --- */
+        .top-bar {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 2.5px 20px;
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            font-size: 0.9rem;
+            border-bottom: 2px solid var(--primary-red);
+            position: relative;
+        }
+
+        /* =======================================================
+           🎯 แก้ไขกล่องดร็อปดาวน์เปลี่ยนภาษาให้อยู่กึ่งกลางพอดีเป๊ะ
+           ======================================================= */
+        .lang-dropdown {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lang-container {
+    position: absolute;
+    /* เปลี่ยนจากค่าติดลบ หรือ calc มาใช้ค่านี้ครับ */
+    top: 50%; 
+    transform: translateY(-15%); 
+    right: 20px; /* ปรับให้ห่างจากขอบขวาเล็กน้อย */
+    
+    background-color: var(--card-bg); 
+    border: 1px solid #1e293b;        
+    border-radius: 25px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 44px;
+    height: 44px; 
+    overflow: hidden;
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6); 
+}
+
+        /* ปรับความสูงตอนกางลงมาให้พอดีกับ 3 ธงชาติ */
+        .lang-dropdown:hover .lang-container {
+            height: 145px; 
+            border-color: rgba(255, 204, 0, 0.4); 
+        }
+
+        .flag-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.2s, filter 0.2s;
+            margin-bottom: 8px;
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;                     /* ป้องกันไม่ให้รูปธงถูกบีบเบี้ยว */
+        }
+
+        .flag-icon:last-child {
+            margin-bottom: 0;
+        }
+
+        .flag-icon:hover {
+            transform: scale(1.15);
+            filter: brightness(1.2);
+        }
+
+        /* เส้นคั่นสีทองใต้ธงหลัก */
+        .lang-divider {
+            width: 24px;
+            height: 1px;
+            background-color: #ffcc00;
+            margin: -2px 0 8px 0;
+            opacity: 0.8;
+            flex-shrink: 0;
+        }
+
+        .lang-container {
+    position: absolute;
+    top: 5px;           /* แก้ไขจาก -16px เป็น 5px หรือค่าที่ลองปรับแล้วพอดี */
+    right: 10px;        /* เว้นระยะห่างจากขอบขวาสุดนิดนึง */
+    background-color: var(--card-bg); 
+    border: 1px solid #1e293b;        
+    border-radius: 25px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 44px;
+    height: 44px;       /* ความสูงเริ่มต้นตอนยังไม่กด */
+    overflow: hidden;
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6); 
+}
+
+        /* ✨ ปรับความสูงตอนกางลงมาให้สั้นลงพอดีกับ 3 ธงชาติ ไม่ยาวโล่งเกินไป ✨ */
+        .lang-dropdown:hover .lang-container {
+            height: 175px; 
+            border-color: rgba(255, 204, 0, 0.4); 
+        }
+
+        .flag-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.2s, filter 0.2s;
+            margin-bottom: 8px;
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .flag-icon:last-child {
+            margin-bottom: 0;
+        }
+
+        .flag-icon:hover {
+            transform: scale(1.15);
+            filter: brightness(1.2);
+        }
+
+        /* เส้นคั่นสีทองใต้ธงหลัก */
+        .lang-divider {
+            width: 26px;
+            height: 1px;
+            background-color: #ffcc00;
+            margin: -2px 0 8px 0;
+            opacity: 0.8;
+        }
+
+        /* ซ่อนแถบเลื่อน */
+        .lang-container::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        /* --- Main Layout Wrapper --- */
+        .resume-container {
+            max-width: 1140px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header Section (ส่วนหัวโปรไฟล์) --- */
+        header {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .profile-area {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .profile-img-wrapper {
+            width: 220px;          
+            height: 220px;         
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--primary-red);
+        }
+
+        .profile-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;     
+            object-position: center 15%; 
+        }
+
+        .verified-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: var(--primary-red);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--dark-bg);
+        }
+
+        .header-info h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        .header-info h1 span {
+            color: var(--primary-red);
+        }
+
+        .header-info h2 {
+            font-size: 1.2rem;
+            color: #ccc;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .header-info p {
+            color: #aaa;
+            max-width: 700px;
+            margin-bottom: 20px;
+        }
+        .header-info p strong {
+            color: white;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #aa0000;
+        }
+
+        .btn-outline {
+            border: 1px solid #444;
+            color: #ccc;
+        }
+        .btn-outline:hover {
+            background: #222;
+            color: white;
+        }
+
+        /* --- Columns Grid Layout (แบ่ง 2 คอลัมน์ ซ้าย-ขวา) --- */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 30px;
+        }
+
+        /* --- Card Styles (กล่องข้อมูลย่อย) --- */
+        .card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--dark-bg);
+            border-bottom: 2px solid #eeeeee;
+            padding-bottom: 10px;
+        }
+
+        .card h3 i {
+            color: var(--primary-red);
+        }
+
+        /* ข้อมูล Fighter Stats */
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        .stats-row:last-child { border: none; }
+        .stats-label { font-weight: 600; color: var(--text-muted); }
+        .stats-value { text-align: right; font-weight: 700; }
+        .stats-sub { font-size: 0.8rem; color: var(--text-muted); display: block; font-weight: normal; }
+
+        /* Timeline (การศึกษาและประสบการณ์ทำงาน) */
+        .timeline {
+            position: relative;
+            padding-left: 20px;
+            border-left: 2px solid #eee;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -27px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-red);
+            border: 3px solid var(--card-bg);
+        }
+        .timeline-date {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-red);
+        }
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 2px 0 5px 0;
+        }
+        .timeline-location {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* ใบรับรอง / ลิสต์รายการ */
+        .cert-list {
+            list-style: none;
+        }
+        .cert-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .cert-list li i {
+            color: #28a745;
+            margin-top: 5px;
+        }
+
+        /* ส่วน Why Train (จุดเด่น) */
+        .feature-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .feature-item:last-child { margin-bottom: 0; }
+        .feature-icon {
+            background: #fff5f5;
+            color: var(--primary-red);
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+        .feature-text h4 { font-size: 1.05rem; margin-bottom: 3px; }
+        .feature-text p { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* 🏆Hall of Fame (ทำเนียบรางวัล) */
+        .fame-banner {
+            background: linear-gradient(135deg, #111, #222);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .fame-banner h3 { color: white; border-bottom: 2px solid #333; }
+        .fame-banner h3 i { color: var(--gold); }
+        
+        .trophy-watermark {
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            font-size: 9rem;
+            color: rgba(255,255,255,0.03);
+            pointer-events: none;
+        }
+
+        .award-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .award-card {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--gold);
+        }
+        .award-title { font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+        .award-title i { color: var(--gold); }
+        .award-org { font-size: 0.9rem; color: #ccc; margin: 3px 0; }
+        .award-detail { font-size: 0.8rem; color: #aaa; }
+
+        /* Gallery/Video Section (ส่วนแสดงวิดีโอ YouTube ไฮไลท์) */
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .video-card {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            display: block;
+        }
+        .video-card img {
+            width: 100%;
+            display: block;
+            transition: transform 0.3s;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            transition: 0.3s;
+        }
+        .video-card:hover img { transform: scale(1.05); }
+        .video-card:hover .video-overlay { background: rgba(204, 0, 0, 0.6); }
+
+        .more-videos {
+            text-align: center;
+            background: #f1f3f5;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        .more-videos a {
+            color: var(--primary-red);
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 5px;
+        }
+
+        /* Tags ทักษะความเชี่ยวชาญ */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-tag {
+            background: #f1f3f5;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .skill-tag i { color: var(--primary-red); }
+
+        /* --- Footer Section (ส่วนท้ายเว็บ) --- */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #ddd;
+            color: var(--text-muted);
+        }
+        footer .statement {
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto 15px auto;
+            color: var(--text-dark);
+        }
+        footer .tagline {
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+        }
+
+        /* --- Responsive Design (ปรับการแสดงผลบนมือถือ) --- */
+        @media (max-width: 850px) {
+            .main-grid {
+                grid-template-columns: 1fr; 
+            }
+            header {
+                flex-direction: column; 
+                text-align: center;
+                padding: 30px 20px;
+            }
+            .contact-buttons {
+                justify-content: center;
+            }
+            .award-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+/* =======================================================
+   🏆 โค้ดสั่งบังคับเปลี่ยนสีหัวข้อและกล่อง (วางล่างสุดของสไตล์) 
+   ======================================================= */
+h1, h2, h3, h4, h5, h6, h2 i, h3 i, .fame-banner h3 {
+    color: #ffcc00 !important;
+}
+
+p, li, span, td, th, div, small, a {
+    color: #ffffff !important;
+}
+
+.card, .cert-box, .stat-box, .champion-card, .why-train-box, section div {
+    background-color: #131c31 !important;
+    background: #131c31 !important;
+    border: 1px solid #1e293b !important;
+    border-radius: 12px !important;
+}
+
+    input, 
+    .search-box, 
+    .search-container, 
+    div[class*="search"], 
+    div[class*="banner"],
+    div[class*="record"] {
+        background-color: #131c31 !important;
+        background: #131c31 !important;
+        border: 1px solid #1e293b !important;
+        color: #ffffff !important;
+    }
+
+    input::placeholder, [placeholder] {
+        color: #94a3b8 !important;
+        opacity: 1 !important;
+    }
+
+    .tag, .badge, .skill-tag, .keyword, .expertise-tag, 
+    [class*="tag"], [class*="badge"], [class*="skill"], [class*="expertise"],
+    .key-expertise span, .key-expertise li {
+        background-color: #1e293b !important; 
+        background: #1e293b !important;
+        color: #ffffff !important; 
+        border: 1px solid #334155 !important; 
+        border-radius: 20px !important; 
+        padding: 5px 15px !important; 
+        display: inline-block !important;
+    }
+
+    [class*="tag"] i, [class*="skill"] i, .tag i, .badge i {
+        color: #ffcc00 !important;
+        margin-right: 5px !important;
+    }
+
+    .feature-icon, [class*="feature-icon"] {
+        background-color: #1e293b !important; 
+        background: #1e293b !important;
+        border: 1px solid #334155 !important;  
+    }
+    .feature-icon i, [class*="feature-icon"] i {
+        color: #ffcc00 !important;              
+    }
+
+    form, .search, .search-box, .search-container, 
+    [class*="search"], [class*="record"], [class*="more"], [class*="channel"] {
+        background-color: #131c31 !important; 
+        border: 1px solid #1e293b !important;
+        border-radius: 12px !important;
+    }
+
+    input, textarea, select {
+        background-color: #1e293b !important;
+        color: #ffffff !important;
+        border: 1px solid #334155 !important;
+        border-radius: 8px !important;
+        padding: 8px 12px !important;
+    }
+
+    form *, [class*="search"] *, [class*="record"] * {
+        color: #ffcc00 !important;
+    }
+    
+    form i, [class*="search"] i {
+        color: #ffcc00 !important;
+    }
+/* ... โค้ดเดิมของคุณ ... */
+
+/* เพิ่มโค้ดตรงนี้ครับ */
+.line-btn {
+    background-color: #06c755 !important;
+    color: white !important;
+    border: none;
+}
+
+.whatsapp-btn {
+    background-color: #25d366 !important;
+    color: white !important;
+    border: none;
+}
+
+.wechat-btn {
+    background-color: #07c160 !important;
+    color: white !important;
+    border: none;
+}
+
+.line-btn:hover, .whatsapp-btn:hover, .wechat-btn:hover {
+    filter: brightness(1.1);
+    cursor: pointer;
+}
+/* ปรับกล่องค้นหาให้กระทัดรัดและเป็นสีแดง */
+.more-videos {
+    background-color: #161b2a !important;
+    border: 1px solid #2a354c !important;
+    padding: 10px 15px !important; /* ปรับลด Padding ให้เล็กลง */
+    border-radius: 8px !important;  /* มุมมนกำลังดี */
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* ปรับข้อความด้านบนให้เล็กลง */
+.more-videos p {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: #cccccc;
+}
+
+/* ปรับปุ่มค้นหาให้ดูเป็นแถบเมนูเล็กๆ */
+.more-videos a {
+    display: inline-block;
+    background-color: rgba(220, 53, 69, 0.2);
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: #ffffff !important;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.more-videos a:hover {
+    background-color: var(--primary-red);
+}
+
+    </style>
+
+
+</head>
+
+<body>
+
+    <!-- แถบด้านบนสุด -->
+    <div class="top-bar">
+        <div>
+            <i class="fa-solid fa-user-ninja"></i> <span data-en="Jakkapan (Dream)" data-th="จักรพันธ์ (ดรีม)" data-zh="贾卡潘 (Dream)">Jakkapan (Dream)</span>
+        </div>
+
+        <!-- 🏆 กล่องธงชาติขวาสุด เหลือเฉพาะ 3 ภาษาตามสั่งครับ -->
+        <div class="lang-dropdown">
+            <div class="lang-container">
+                <!-- ส่วนหัวบนสุดแสดงธงที่เลือกอยู่ปัจจุบัน -->
+                <img src="https://flagcdn.com/w80/th.png" class="flag-icon" id="current-flag" style="margin-bottom: 6px;">
+                <div class="lang-divider"></div>
+                
+                <!-- รายชื่อธงเหลือแค่ TH, EN (GB), ZH (CN) เท่านั้น -->
+                <img src="https://flagcdn.com/w80/th.png" class="flag-icon" title="Thailand" onclick="changeLang('th', 'th')">
+                <img src="https://flagcdn.com/w80/gb.png" class="flag-icon" title="English" onclick="changeLang('en', 'gb')">
+                <img src="https://flagcdn.com/w80/cn.png" class="flag-icon" title="China" onclick="changeLang('zh', 'cn')">
+            </div>
+        </div>
+    </div>
+
+    <div class="resume-container">
+        
+        <!-- ส่วนหัวเว็บ -->
+        <header>
+            <div class="profile-area">
+                <div class="profile-img-wrapper">
+                    <img alt="Jakkapan Profile" src="https://lh3.googleusercontent.com/d/1oivU3_H29Ddt_Yc0vqwKFsPl_9uyGDlB">
+                </div>
+                <div class="verified-badge">
+                    <i class="fa-solid fa-star"></i>
+                </div>
+            </div>
+            <div class="header-info">
+                <h1>
+                    <span data-en="Jakkapan" data-th="จักรพันธ์" data-zh="贾卡潘">Jakkapan</span> 
+                    <span style="color: var(--primary-red) !important;" data-en="Prakobsri (Dream)" data-th="ประกอบศรี (ดรีม)" data-zh="普拉科布斯里 (Dream)">Prakobsri (Dream)</span>
+                </h1>
+                <h2 data-en="FULL-TIME MUAY THAI TRAINER" data-th="ครูมวยไทยเต็มเวลา" data-zh="全职泰拳教练">FULL-TIME MUAY THAI TRAINER</h2>
+                <p data-en='"Blending the spirit of a <strong>Channel 7 Stadium Champion</strong> with a <strong>Master&apos;s Degree</strong> in Physical Education. Focusing on effective, fun, and safe training, ready to pass on professional-level skills."'
+                   data-th='"ผสมผสานจิตวิญญาณของ <strong>แชมป์เวทีมวยช่อง 7 สี</strong> เข้ากับ <strong>ปริญญาโท</strong> สาขาพลศึกษา มุ่งเน้นการฝึกซ้อมที่เห็นผล สนุกสนาน และปลอดภัย พร้อมถ่ายทอดทักษะระดับมืออาชีพ"'
+                   data-zh='"融合 <strong>七台拳场冠军</strong> 的精神与 <strong>体育教育硕士学位</strong>。专注于有效、有趣且安全的训练，随时准备传授专业级技能。"'>
+                    "Blending the spirit of a <strong>Channel 7 Stadium Champion</strong> with a <strong>Master's Degree</strong> in Physical Education. Focusing on effective, fun, and safe training, ready to pass on professional-level skills."
+                </p>
+                <div class="contact-buttons">
+    <a href="mailto:dream.mt.warmachine@gmail.com" class="btn btn-primary">
+        <i class="fa-solid fa-envelope"></i> <span>dream.mt.warmachine@gmail.com</span>
+    </a>
+    
+    <a href="https://line.me/ti/p/~amazingdream" target="_blank" class="btn line-btn">
+        <i class="fa-brands fa-line"></i> <span>Line: amazingdream</span>
+    </a>
+
+    <a href="https://wa.me/66800276232" target="_blank" class="btn whatsapp-btn">
+        <i class="fa-brands fa-whatsapp"></i> <span>WhatsApp: 080-027-6232</span>
+    </a>
+
+    <a href="#" onclick="alert('WeChat ID: dreammtwarmachine'); return false;" class="btn wechat-btn">
+        <i class="fa-brands fa-weixin"></i> <span>WeChat: dreammtwarmachine</span>
+    </a>
+</div>
+              
+        </header>
+
+        <!-- โครงสร้างเนื้อหาหลัก (2 คอลัมน์) -->
+        <div class="main-grid">
+            
+            <!-- คอลัมน์ฝั่งซ้าย -->
+            <div class="left-column">
+                
+                <div class="card">
+                    <h3><i class="fa-solid fa-chart-simple"></i> <span data-en="Fighter Stats" data-th="สถิตินักมวย" data-zh="选手数据">Fighter Stats</span></h3>
+                    <div class="stats-row">
+                        <span class="stats-label" data-en="Fight Name" data-th="ชื่อชก" data-zh="拳坛绰号">Fight Name</span>
+                        <span class="stats-value" data-en="Phetphusang Kela Sport" data-th="เพชรภูซาง กีล่าสปอร์ต" data-zh="Phetphusang Kela Sport">Phetphusang Kela Sport</span>
+                    </div>
+                    <div class="stats-row">
+                        <span class="stats-label" data-en="Weight Class" data-th="พิกัดน้ำหนัก" data-zh="体重级别">Weight Class</span>
+                        <span class="stats-value">
+                            <span data-en="118 lbs" data-th="118 ปอนด์" data-zh="118 磅">118 lbs</span> 
+                            <span class="stats-sub" data-en="(Bantamweight)" data-th="(รุ่นแบนตัมเวต)" data-zh="(雏量级)">(Bantamweight)</span>
+                        </span>
+                    </div>
+                    <div class="stats-row">
+                        <span class="stats-label" data-en="Style" data-th="สไตล์การชก" data-zh="打法风格">Style</span>
+                        <span class="stats-value">
+                            <span data-en="Muay Femeu (IQ Fighter)" data-th="มวยฝีมือ (ไอคิวสูง)" data-zh="技术型泰拳 (IQ拳手)">Muay Femeu (IQ Fighter)</span> 
+                            <span class="stats-sub" data-en="Smart, Witty & Tactical" data-th="ฉลาด มีไหวพริบ & วางแผนเก่ง" data-zh="聪明、机智且富有战术">Smart, Witty & Tactical</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-graduation-cap"></i> <span data-en="Education" data-th="ประวัติการศึกษา" data-zh="教育背景">Education</span></h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date" data-en="Master's Degree" data-th="ปริญญาโท" data-zh="硕士学位">Master's Degree</div>
+                            <div class="timeline-title" data-en="Physical Education" data-th="สาขาพลศึกษา" data-zh="体育教育">Physical Education</div>
+                            <div class="timeline-location" data-en="Thailand National Sports University, Chiang Mai" data-th="มหาวิทยาลัยการกีฬาแห่งชาติ วิทยาเขตเชียงใหม่" data-zh="泰国国立体育大学 (清迈校区)">Thailand National Sports University, Chiang Mai</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date" data-en="Bachelor's Degree" data-th="ปริญญาตรี" data-zh="学士学位">Bachelor's Degree</div>
+                            <div class="timeline-title" data-en="Physical Education" data-th="สาขาพลศึกษา" data-zh="体育教育">Physical Education</div>
+                            <div class="timeline-location" data-en="Thailand National Sports University, Lampang" data-th="มหาวิทยาลัยการกีฬาแห่งชาติ วิทยาเขตลำปาง" data-zh="泰国国立体育大学 (南邦校区)">Thailand National Sports University, Lampang</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-certificate"></i> <span data-en="Certifications" data-th="ใบรับรอง / คุณวุฒิ" data-zh="资质认证">Certifications</span></h3>
+                    <ul class="cert-list">
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-en="C-License Trainer" data-th="ผู้ฝึกสอนระดับ C-License" data-zh="C级教练执照">C-License Trainer</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-en="Professional Muay Thai Referee" data-th="ผู้ตัดสินมวยไทยอาชีพ" data-zh="职业泰拳裁判">Professional Muay Thai Referee</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-en="Amateur Muay Thai Referee (Advanced)" data-th="ผู้ตัดสินมวยไทยสมัครเล่น (ระดับสูง)" data-zh="业余泰拳裁判 (高级)">Amateur Muay Thai Referee (Advanced)</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-en="Amateur Boxing Referee (2 Star)" data-th="ผู้ตัดสินมวยสากลสมัครเล่น (2 ดาว)" data-zh="业余拳击裁判 (二星级)">Amateur Boxing Referee (2 Star)</span></li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-heart-pulse"></i> <span data-en="Why Train with Kru Dream?" data-th="ทำไมต้องเรียนกับครูดรีม?" data-zh="为什么选择与 Dream 教练训练？">Why Train with Kru Dream?</span></h3>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa-solid fa-flask"></i></div>
+                        <div class="feature-text">
+                            <h4 data-en="Science-Based & Safe" data-th="ปลอดภัยตามหลักวิทยาศาสตร์" data-zh="基于科学且安全">Science-Based & Safe</h4>
+                            <p data-en="Applying Physical Education and movement science for systematic, injury-free training." data-th="ประยุกต์ใช้พลศึกษาและวิทยาศาสตร์การเคลื่อนไหว เพื่อการฝึกซ้อมที่เป็นระบบและปราศจากอาการบาดเจ็บ" data-zh="应用体育教育และ运动科学进行系统化、无伤病的训练。">Applying Physical Education and movement science for systematic, injury-free training.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa-solid fa-glove-boxing"></i></div>
+                        <div class="feature-text">
+                            <h4 data-en="Authentic Champion Skills" data-th="ทักษะจากแชมป์ตัวจริง" data-zh="正宗冠军技能">Authentic Champion Skills</h4>
+                            <p data-en="Learn real fight techniques directly from a Channel 7 Stadium Champion." data-th="เรียนรู้เทคนิคการต่อสู้จริงโดยตรงจากแชมป์เวทีมวยช่อง 7 สี" data-zh="直接向七台拳场冠军学习真正的实战技术。">Learn real fight techniques directly from a Channel 7 Stadium Champion.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
+                        <div class="feature-text">
+                            <h4 data-en="Psychology & Mindset" data-th="จิตวิทยาและแนวคิด" data-zh="心理与心态">Psychology & Mindset</h4>
+                            <p data-en="Developing fighter's mindset using sports psychology principles." data-th="พัฒนาแนวคิดแบบนักสู้โดยใช้หลักจิตวิทยาการกีฬา" data-zh="利用运动心理学原理培养拳手的心态。">Developing fighter's mindset using sports psychology principles.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- คอลัมน์ฝั่งขวา -->
+            <div class="right-column">
+                
+                <div class="card fame-banner">
+                    <i class="fa-solid fa-trophy trophy-watermark"></i>
+                    <h3><i class="fa-solid fa-award"></i> <span data-en="HALL OF FAME" data-th="ทำเนียบเกียรติยศ" data-zh="名人堂">HALL OF FAME</span></h3>
+                    <div class="award-grid">
+                        <div class="award-card">
+                            <div class="award-title"><span data-en="Champion" data-th="แชมป์" data-zh="冠军">Champion</span> <i class="fa-solid fa-trophy"></i></div>
+                            <div class="award-org" data-en="Channel 7 Stadium" data-th="เวทีมวยช่อง 7 สี" data-zh="七台拳场 (Channel 7)">Channel 7 Stadium</div>
+                            <div class="award-detail"><i class="fa-solid fa-scale-balanced"></i> <span data-en="118 lbs" data-th="118 ปอนด์" data-zh="118 磅">118 lbs</span></div>
+                        </div>
+                        <div class="award-card">
+                            <div class="award-title"><span data-en="Champion" data-th="แชมป์" data-zh="冠军">Champion</span> <i class="fa-solid fa-trophy"></i></div>
+                            <div class="award-org" data-en="Channel 9 (Assawindam)" data-th="ช่อง 9 (อัศวินดำ)" data-zh="九台 (阿斯温丹拳场)">Channel 9 (Assawindam)</div>
+                            <div class="award-detail"><i class="fa-solid fa-scale-balanced"></i> <span data-en="118 lbs" data-th="118 ปอนด์" data-zh="118 磅">118 lbs</span></div>
+                        </div>
+                        <div class="award-card">
+                            <div class="award-title"><span data-en="Champion" data-th="แชมป์" data-zh="冠军">Champion</span> <i class="fa-solid fa-trophy"></i></div>
+                            <div class="award-org" data-en="Fertilizer Brand Tournament" data-th="มวยรอบตราปุ๋ย" data-zh="化肥品牌杯锦标赛">Fertilizer Brand Tournament</div>
+                            <div class="award-detail" data-en="Channel 9 Assawindam" data-th="ช่อง 9 อัศวินดำ" data-zh="九台 阿斯温丹">Channel 9 Assawindam</div>
+                        </div>
+                        <div class="award-card">
+                            <div class="award-title"><span data-en="Gold Medal" data-th="เหรียญทอง" data-zh="金牌">Gold Medal</span> <i class="fa-solid fa-medal"></i></div>
+                            <div class="award-org" data-en="TNSU Games #38" data-th="กีฬามหาวิทยาลัยการกีฬาแห่งชาติ ครั้งที่ 38" data-zh="国立体育大学运动会 #38">TNSU Games #38</div>
+                            <div class="award-detail"><i class="fa-solid fa-star"></i> <span data-en="Best Boxer Award" data-th="รางวัลนักมวยยอดเยี่ยม" data-zh="最佳拳手奖">Best Boxer Award</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-video"></i> <span data-en="Action Highlights" data-th="ไฮไลท์การชก" data-zh="精彩实战高光">Action Highlights</span></h3>
+                    <div class="video-grid">
+                        <a href="https://www.youtube.com/watch?v=s8S5W1lGxsI" target="_blank" class="video-card">
+                            <img alt="Video 1" src="https://img.youtube.com/vi/s8S5W1lGxsI/mqdefault.jpg">
+                            <div class="video-overlay"><i class="fa-brands fa-youtube"></i></div>
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=Oa405IJf5V8" target="_blank" class="video-card">
+                            <img alt="Video 2" src="https://img.youtube.com/vi/Oa405IJf5V8/mqdefault.jpg">
+                            <div class="video-overlay"><i class="fa-brands fa-youtube"></i></div>
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=kMERRrf197s" target="_blank" class="video-card">
+                            <img alt="Video 3" src="https://img.youtube.com/vi/kMERRrf197s/mqdefault.jpg">
+                            <div class="video-overlay"><i class="fa-brands fa-youtube"></i></div>
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=cJkDasEK6F4" target="_blank" class="video-card">
+                            <img alt="Video 4" src="https://img.youtube.com/vi/cJkDasEK6F4/mqdefault.jpg">
+                            <div class="video-overlay"><i class="fa-brands fa-youtube"></i></div>
+                        </a>
+                    </div>
+                    <div class="more-videos">
+                        <p data-en="Want to see more fight records?" data-th="ต้องการดูสถิติการชกเพิ่มเติมไหม?" data-zh="想查看更多比赛记录吗？">Want to see more fight records?</p>
+                        <a href="https://www.youtube.com/results?search_query=เพชรภูซาง+กีล่าสปอร์ต" target="_blank">
+                            <i class="fa-solid fa-magnifying-glass"></i> <span data-en='Search "Phetphusang Kela Sport"' data-th='ค้นหา "เพชรภูซาง กีล่าสปอร์ต"' data-zh='搜索 "Phetphusang Kela Sport"'>Search "Phetphusang Kela Sport"</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-chalkboard-user"></i> <span data-en="Teaching Experience" data-th="ประสบการณ์การสอน" data-zh="教学经验">Teaching Experience</span></h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date" data-en="2019 - 2025" data-th="2562 - 2568" data-zh="2019 - 2025">2562 - 2568</div>
+                            <div class="timeline-title" data-en="Instructor of Muay Thai Skills and Physical Education" data-th="อาจารย์ผู้สอนทักษะมวยไทยและพลศึกษา" data-zh="泰拳技能与体育教育导师">Instructor of Muay Thai Skills and Physical Education</div>
+                            <div class="timeline-location" data-en="@ TNSU Lampang" data-th="@ มกช. ลำปาง" data-zh="@ 泰国国立体育大学 南邦">@ TNSU Lampang</div>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 5px;" 
+                               data-en="Responsible for teaching Muay Thai skills, physical education, game analysis, and sports psychology to undergraduate students (Former Special Instructor)." 
+                               data-th="รับผิดชอบสอนทักษะมวยไทย พลศึกษา การวิเคราะห์เกม และจิตวิทยาการกีฬาให้กับนักศึกษาระดับปริญญาตรี (อดีตอาจารย์พิเศษ)" 
+                               data-zh="负责向本科生教授泰拳技能、体育教育、比赛分析和运动心理学（前特聘讲师）。">
+                                Responsible for teaching Muay Thai skills, physical education, game analysis, and sports psychology to undergraduate students (Former Special Instructor).
+                            </p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date" data-en="Special Projects" data-th="โครงการพิเศษ" data-zh="特殊项目">Special Projects</div>
+                            <div class="timeline-title" data-en="Special Lecturer and Trainer" data-th="วิทยากรและผู้ฝึกสอนพิเศษ" data-zh="特邀讲师与教练">Special Lecturer and Trainer</div>
+                            <ul class="cert-list" style="font-size: 0.9rem; margin-top: 5px;">
+                                <li><i class="fa-solid fa-caret-right" style="color: var(--primary-red);"></i> <span data-en="Speaker for Basic Amateur Muay Thai Instructor Training" data-th="วิทยากรโครงการอบรมผู้ฝึกสอนมวยไทยสมัครเล่นขั้นพื้นฐาน" data-zh="基础业余泰拳教练培训主讲人">Speaker for Basic Amateur Muay Thai Instructor Training</span></li>
+                                <li><i class="fa-solid fa-caret-right" style="color: var(--primary-red);"></i> <span data-en="Excellent Amateur Muay Thai Trainer Award (TNSU Games #40)" data-th="รางวัลผู้ฝึกสอนมวยไทยสมัครเล่นดีเด่น (กีฬามกช. ครั้งที่ 40)" data-zh="优秀业余泰拳教练奖（国立体育大学运动会 #40）">Excellent Amateur Muay Thai Trainer Award (TNSU Games #40)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-star"></i> <span data-en="Key Expertise" data-th="ความเชี่ยวชาญพิเศษ" data-zh="核心专业知识">Key Expertise</span></h3>
+                    <div class="skills-grid">
+                        <div class="skill-tag"><i class="fa-solid fa-shield-halved"></i> <span data-en="Muay Thai Tech" data-th="เทคนิคมวยไทย" data-zh="泰拳技术">Muay Thai Tech</span></div>
+                        <div class="skill-tag"><i class="fa-solid fa-dumbbell"></i> <span data-en="Strength & Cond." data-th="ความแข็งแกร่งและฟิตเนส" data-zh="力量与体能">Strength & Cond.</span></div>
+                        <div class="skill-tag"><i class="fa-solid fa-hand-fist"></i> <span data-en="Pad Holding" data-th="การล่อเป้า" data-zh="持靶技术">Pad Holding</span></div>
+                        <div class="skill-tag"><i class="fa-solid fa-book-open"></i> <span data-en="Pedagogy" data-th="หลักการสอน" data-zh="教学法">Pedagogy</span></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ส่วนท้ายหน้าเว็บ -->
+        <footer>
+            <p class="statement" 
+               data-en='"While my English is developing, I am a fast learner, eager to improve, and ready to adapt to your gym&apos;s culture."' 
+               data-th='"แม้ภาษาอังกฤษของฉันกำลังอยู่ในช่วงพัฒนา แต่ฉันเรียนรู้ไว กระตือรือร้นที่จะปรับปรุง และพร้อมปรับตัวให้เข้ากับวัฒนธรรมของยิมคุณ"' 
+               data-zh='"虽然我的英语还在提高中，但我学得很快，渴望进步，并准备好融入贵拳馆的文化。"'>
+                "While my English is developing, I am a fast learner, eager to improve, and ready to adapt to your gym's culture."
+            </p>
+            <p class="tagline" data-en="Ready to Train Champions." data-th="พร้อมแล้วที่จะสร้างแชมป์" data-zh="准备好培养冠军。">Ready to Train Champions.</p>
+            <p data-en="© 2026 Jakkapan Prakobsri. All rights reserved." data-th="© 2026 จักรพันธ์ ประกอบศรี. สงวนลิขสิทธิ์ทั้งหมด" data-zh="© 2026 Jakkapan Prakobsri. 保留所有权利。">© 2026 Jakkapan Prakobsri. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <!-- สคริปต์ JavaScript เปลี่ยนภาษาและจำสถานะดรอปดาวน์ -->
+    <script>
+    function changeLang(lang, flagCode) {
+        // เปลี่ยนรูปธงด้านบนสุดให้ตรงตามประเทศที่เลือก
+        document.getElementById('current-flag').src = `https://flagcdn.com/w80/${flagCode}.png`;
+        
+        // ลูปแก้ไขข้อความภาษาภายในหน้าเว็บทั้งหมด
+        document.querySelectorAll('[data-en]').forEach(el => {
+            let targetText = el.getAttribute(`data-${lang}`);
+            
+            // กรณีไม่มีชุดแปลภาษา ให้ดึงภาษาอังกฤษมายืนพื้นไว้ก่อน
+            if (!targetText) {
+                targetText = el.getAttribute('data-en') || el.getAttribute('data-th');
+            }
+            if (targetText) {
+                el.innerHTML = targetText;
+            }
+        });
+        
+        document.documentElement.lang = lang;
+        
+        // บันทึกความจำลง LocalStorage ของบราวเซอร์
+        localStorage.setItem('userLanguage', lang);
+        localStorage.setItem('userFlag', flagCode);
+    }
+
+    // เรียกทำงานทันทีเมื่อหน้าเว็บโหลดเสร็จ
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('userLanguage') || 'en';
+        const savedFlag = localStorage.getItem('userFlag') || 'gb';
+        changeLang(savedLang, savedFlag);
+    });
+    </script>
+
+</body>
+</html>
